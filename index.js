@@ -1,4 +1,8 @@
 const component = require('./js/components');
+const page = require('./js/pages');
+this.document = '';
+this.components = [];
+this.pages = [];
 
 exports.render = function(comp) {
     component.readComponent(comp);
@@ -6,7 +10,10 @@ exports.render = function(comp) {
 
 exports.module = function (modules) {
     for (let i in modules) {
-        component.readComponent(modules[i]);
+        if (modules[i][3].type === 'component')
+            component.readComponent(modules[i]);
+        else
+            page.readPage(modules[i]);
     }
-    component.closeIndex();
-}
+    page.closeIndex();
+};
