@@ -1,0 +1,1 @@
+const component = require('js/components');

@@ -1,0 +1,19 @@
+{
+  "name": "burgerjs",
+  "version": "0.0.1",
+  "description": "Client component framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/martinpastore/BurgerJS.git"
+  },
+  "author": "martinpastore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/martinpastore/BurgerJS/issues"
+  },
+  "homepage": "https://gitlab.com/martinpastore/BurgerJS#readme"
+}
