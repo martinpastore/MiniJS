@@ -4,6 +4,7 @@
   "description": "Client component framework",
   "main": "index.js",
   "scripts": {
+    "package": "npm build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
