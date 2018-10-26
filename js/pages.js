@@ -52,7 +52,9 @@ exports.replaceComponents = function(html) {
 
 exports.createIndex = function() {
     document  = `<html>
-        <head></head>
+        <head>
+            <link rel="stylesheet" href="foundation.css">
+        </head>
         <body id="burgerjs-app">`;
     return document;
 };
@@ -73,4 +75,6 @@ exports.build = function() {
     fs.writeFile('./dist/index.html', main.document, function (err) {
         if (err) return console.log(err);
     });
+
+    fs.createReadStream('./styles/foundation.css').pipe(fs.createWriteStream('./dist/foundation.css'));
 };
