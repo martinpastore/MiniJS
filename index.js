@@ -1,6 +1,7 @@
 const component = require('./js/components');
 const page = require('./js/pages');
 const build = require('./js/build');
+this.configs = require('../../burger');
 this.document = '';
 this.scripts = '';
 this.styles = '';

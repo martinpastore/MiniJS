@@ -1,8 +1,6 @@
 const main = require('../index');
 const build = require('./build');
 
-const fileType = 'pages'
-
 exports.render = function(component) {
     if (main.document  === '') main.document = build.createIndex();
     let html = component.html;
@@ -14,9 +12,9 @@ exports.render = function(component) {
 
 exports.readPage = function (pages) {
     const result = {
-        html: build.readFile(fileType, pages[0].name, 'html'),
-        js: build.compileJS(pages[0].name, fileType),
-        css: build.compileCSS(pages[0].name, fileType)
+        html: build.readFile(main.configs.pages, pages[0].name, 'html'),
+        js: build.compileJS(pages[0].name, main.configs.pages),
+        css: build.compileCSS(pages[0].name, main.configs.pages)
     };
 
     this.render(result);
