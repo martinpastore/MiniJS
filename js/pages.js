@@ -1,6 +1,5 @@
 const main = require('../index');
 const build = require('./build');
-const fs = require('fs');
 
 const fileType = 'pages'
 

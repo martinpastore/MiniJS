@@ -1,6 +1,5 @@
 const main = require('../index');
 const build = require('./build');
-var fs = require('fs');
 
 const fileType = 'components'
 
