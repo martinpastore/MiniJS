@@ -8,9 +8,16 @@ exports.createIndex = function() {
         <head>
             <link rel="stylesheet" href="foundation.css">
             <link rel="stylesheet" href="assets/foundation-icons.css">
-            <link rel="stylesheet" href="main.css">
-        </head>
-        <body id="burgerjs-app">`;
+            <link rel="stylesheet" href="main.css">`;
+
+    if (main.configs.styles.length > 0) {
+        for (let i in main.configs.styles) {
+            document += `<link rel="stylesheet" href="${main.configs.styles[i]}">`
+        }
+    }
+
+    document += `</head>
+    <body id="burgerjs-app">`
     return document;
 };
 
@@ -83,6 +90,12 @@ exports.build = function() {
     if (main.configs.scripts.length > 0) {
         for (let i in main.configs.scripts) {
             fs.createReadStream(`./scripts/${main.configs.scripts[i]}`).pipe(fs.createWriteStream(`./dist/${main.configs.scripts[i]}`));
+        }
+    }
+
+    if (main.configs.styles.length > 0) {
+        for (let i in main.configs.styles) {
+            fs.createReadStream(`./styles/${main.configs.styles[i]}`).pipe(fs.createWriteStream(`./dist/${main.configs.styles[i]}`));
         }
     }
 
