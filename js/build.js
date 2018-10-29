@@ -15,10 +15,13 @@ exports.createIndex = function() {
 };
 
 exports.closeIndex = function() {
-    main.document += `<script src="jquery.js"></script>
-        <script src="what-input.js"></script>
-        <script src="foundation.js"></script>
-        <script src="main.js"></script>
+    if (main.configs.hasFoundation === 'yes') {
+        main.document += `<script src="jquery.js"></script>
+            <script src="what-input.js"></script>
+            <script src="foundation.js"></script>`;
+    }
+
+    main.document += `<script src="main.js"></script>
         </body>
     </html>`;
     this.build();
@@ -47,9 +50,10 @@ exports.readFile = function(fileType, fileName, format) {
 exports.build = function() {
     const dir = './dist';
 
-    if (!fs.existsSync(dir)){
-        fs.mkdirSync(dir);
+    if (fs.existsSync(dir)) {
+        fse.removeSync(dir);
     }
+    fs.mkdirSync(dir);
 
     fs.writeFile('./dist/index.html', main.document, function (err) {
         if (err) return console.log(err);
@@ -63,9 +67,11 @@ exports.build = function() {
         if (err) return console.log(err);
     });
 
-    fs.createReadStream('./styles/foundation.css').pipe(fs.createWriteStream('./dist/foundation.css'));
-    fs.createReadStream('./scripts/foundation.js').pipe(fs.createWriteStream('./dist/foundation.js'));
-    fs.createReadStream('./scripts/what-input.js').pipe(fs.createWriteStream('./dist/what-input.js'));
-    fs.createReadStream('./scripts/jquery.js').pipe(fs.createWriteStream('./dist/jquery.js'));
+    if (main.configs.hasFoundation === 'yes') {
+        fs.createReadStream('./styles/foundation.css').pipe(fs.createWriteStream('./dist/foundation.css'));
+        fs.createReadStream('./scripts/foundation.js').pipe(fs.createWriteStream('./dist/foundation.js'));
+        fs.createReadStream('./scripts/what-input.js').pipe(fs.createWriteStream('./dist/what-input.js'));
+        fs.createReadStream('./scripts/jquery.js').pipe(fs.createWriteStream('./dist/jquery.js'));
+    }
     fse.copy('./assets/', './dist/assets/');
 };
