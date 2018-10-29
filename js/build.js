@@ -24,6 +24,26 @@ exports.closeIndex = function() {
     this.build();
 };
 
+exports.compileCSS = function(css, fileType) {
+    const script = this.readFile(fileType, css, 'css');
+    return script;
+};
+
+exports.compileJS = function(js, fileType) {
+    const script = this.readFile(fileType, js, 'js');
+    return script;
+};
+
+
+exports.readFile = function(fileType, fileName, format) {
+    try {
+        const data = fs.readFileSync(`./${fileType}/${fileName}/${fileName}.${format}`, 'utf8');
+        return data.toString();
+    } catch(e) {
+        console.log('Error:', e.stack);
+    }
+};
+
 exports.build = function() {
     const dir = './dist';
 

@@ -1,5 +1,8 @@
 const main = require('../index');
+const build = require('./build');
 var fs = require('fs');
+
+const fileType = 'components'
 
 exports.render = function(component) {
     const html = component.html;
@@ -10,30 +13,11 @@ exports.render = function(component) {
 
 exports.readComponent = function (component) {
     const result = {
-        html: this.readFile(component[0].name, 'html'),
-        js: this.compileJS(component[0].name),
-        css: this.compileCSS(component[0].name),
+        html: build.readFile(fileType, component[0].name, 'html'),
+        js: build.compileJS(component[0].name, fileType),
+        css: build.compileCSS(component[0].name, fileType),
         selector: component[2].selector
     };
 
     this.render(result);
-};
-
-exports.compileCSS = function(css) {
-    const script = this.readFile(css, 'css');
-    return script;
-};
-
-exports.compileJS = function(js) {
-    const script = this.readFile(js, 'js');
-    return script;
-};
-
-exports.readFile = function(fileName, format) {
-    try {
-        const data = fs.readFileSync(`./components/${fileName}/${fileName}.${format}`, 'utf8');
-        return data.toString();
-    } catch(e) {
-        console.log('Error:', e.stack);
-    }
 };
