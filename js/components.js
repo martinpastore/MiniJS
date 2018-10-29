@@ -2,16 +2,18 @@ const main = require('../index');
 var fs = require('fs');
 
 exports.render = function(component) {
-    const html = component.html + component.js + component.css;
+    const html = component.html;
+    main.scripts += component.js;
+    main.styles += component.css;
     main.components.push({selector: component.selector, html: html});
 };
 
 exports.readComponent = function (component) {
     const result = {
-        html: this.readFile(component[0].html, 'html'),
-        js: this.compileJS(component[1].js),
-        css: this.compileCSS(component[2].css),
-        selector: component[4].selector
+        html: this.readFile(component[0].name, 'html'),
+        js: this.compileJS(component[0].name),
+        css: this.compileCSS(component[0].name),
+        selector: component[2].selector
     };
 
     this.render(result);
@@ -19,12 +21,12 @@ exports.readComponent = function (component) {
 
 exports.compileCSS = function(css) {
     const script = this.readFile(css, 'css');
-    return `<style>${script}</style>`
+    return script;
 };
 
 exports.compileJS = function(js) {
     const script = this.readFile(js, 'js');
-    return `<script>${script}</script>`
+    return script;
 };
 
 exports.readFile = function(fileName, format) {

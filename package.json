@@ -1,6 +1,6 @@
 {
   "name": "burgerjs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Client component framework",
   "main": "index.js",
   "scripts": {
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/martinpastore/BurgerJS.git"
+    "url": "git+https://github.com/martinpastore/BurgerJS.git"
   },
   "author": "martinpastore",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/martinpastore/BurgerJS/issues"
+    "url": "https://github.com/martinpastore/BurgerJS/issues"
   },
-  "homepage": "https://gitlab.com/martinpastore/BurgerJS#readme"
+  "homepage": "https://github.com/martinpastore/BurgerJS#readme"
 }

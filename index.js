@@ -1,6 +1,8 @@
 const component = require('./js/components');
 const page = require('./js/pages');
 this.document = '';
+this.scripts = '';
+this.styles = '';
 this.components = [];
 this.pages = [];
 
@@ -10,7 +12,7 @@ exports.render = function(comp) {
 
 exports.module = function (modules) {
     for (let i in modules) {
-        if (modules[i][3].type === 'component')
+        if (modules[i][1].type === 'component')
             component.readComponent(modules[i]);
         else
             page.readPage(modules[i]);
