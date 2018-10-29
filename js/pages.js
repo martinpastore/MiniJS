@@ -1,5 +1,6 @@
 const main = require('../index');
-var fs = require('fs');
+const fs = require('fs');
+const fse = require('fs-extra');
 let document = '';
 
 exports.render = function(component) {
@@ -56,6 +57,7 @@ exports.createIndex = function() {
     document  = `<html>
         <head>
             <link rel="stylesheet" href="foundation.css">
+            <link rel="stylesheet" href="assets/foundation-icons.css">
             <link rel="stylesheet" href="main.css">
         </head>
         <body id="burgerjs-app">`;
@@ -63,7 +65,10 @@ exports.createIndex = function() {
 };
 
 exports.closeIndex = function() {
-    main.document += `<script src="main.js"></script>
+    main.document += `<script src="jquery.js"></script>
+        <script src="what-input.js"></script>
+        <script src="foundation.js"></script>
+        <script src="main.js"></script>
         </body>
     </html>`;
     this.build();
@@ -89,4 +94,8 @@ exports.build = function() {
     });
 
     fs.createReadStream('./styles/foundation.css').pipe(fs.createWriteStream('./dist/foundation.css'));
+    fs.createReadStream('./scripts/foundation.js').pipe(fs.createWriteStream('./dist/foundation.js'));
+    fs.createReadStream('./scripts/what-input.js').pipe(fs.createWriteStream('./dist/what-input.js'));
+    fs.createReadStream('./scripts/jquery.js').pipe(fs.createWriteStream('./dist/jquery.js'));
+    fse.copy('./assets/', './dist/assets/');
 };
