@@ -5,10 +5,7 @@ let document = '';
 
 exports.createIndex = function() {
     document  = `<html>
-        <head>
-            <link rel="stylesheet" href="foundation.css">
-            <link rel="stylesheet" href="assets/foundation-icons.css">
-            <link rel="stylesheet" href="main.css">`;
+        <head>`;
 
     if (main.configs.styles.length > 0) {
         for (let i in main.configs.styles) {
@@ -16,18 +13,13 @@ exports.createIndex = function() {
         }
     }
 
-    document += `</head>
+    document += `<link rel="stylesheet" href="main.css">
+            </head>
     <body id="burgerjs-app">`
     return document;
 };
 
 exports.closeIndex = function() {
-    if (main.configs.hasFoundation === 'yes') {
-        main.document += `<script src="jquery.js"></script>
-            <script src="what-input.js"></script>
-            <script src="foundation.js"></script>`;
-    }
-
     if (main.configs.scripts.length > 0) {
         for (let i in main.configs.scripts) {
             main.document += `<script src="${main.configs.scripts[i]}"></script>`
@@ -79,13 +71,6 @@ exports.build = function() {
     fs.writeFile('./dist/main.css', main.styles, function (err) {
         if (err) return console.log(err);
     });
-
-    if (main.configs.hasFoundation === 'yes') {
-        fs.createReadStream('./styles/foundation.css').pipe(fs.createWriteStream('./dist/foundation.css'));
-        fs.createReadStream('./scripts/foundation.js').pipe(fs.createWriteStream('./dist/foundation.js'));
-        fs.createReadStream('./scripts/what-input.js').pipe(fs.createWriteStream('./dist/what-input.js'));
-        fs.createReadStream('./scripts/jquery.js').pipe(fs.createWriteStream('./dist/jquery.js'));
-    }
 
     if (main.configs.scripts.length > 0) {
         for (let i in main.configs.scripts) {
