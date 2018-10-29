@@ -21,6 +21,12 @@ exports.closeIndex = function() {
             <script src="foundation.js"></script>`;
     }
 
+    if (main.configs.scripts.length > 0) {
+        for (let i in main.configs.scripts) {
+            main.document += `<script src="${main.configs.scripts[i]}"></script>`
+        }
+    }
+
     main.document += `<script src="main.js"></script>
         </body>
     </html>`;
@@ -73,5 +79,12 @@ exports.build = function() {
         fs.createReadStream('./scripts/what-input.js').pipe(fs.createWriteStream('./dist/what-input.js'));
         fs.createReadStream('./scripts/jquery.js').pipe(fs.createWriteStream('./dist/jquery.js'));
     }
+
+    if (main.configs.scripts.length > 0) {
+        for (let i in main.configs.scripts) {
+            fs.createReadStream(`./scripts/${main.configs.scripts[i]}`).pipe(fs.createWriteStream(`./dist/${main.configs.scripts[i]}`));
+        }
+    }
+
     fse.copy('./assets/', './dist/assets/');
 };
