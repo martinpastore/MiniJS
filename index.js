@@ -1,5 +1,6 @@
 const component = require('./js/components');
 const page = require('./js/pages');
+const build = require('./js/build');
 this.document = '';
 this.scripts = '';
 this.styles = '';
@@ -17,5 +18,5 @@ exports.module = function (modules) {
         else
             page.readPage(modules[i]);
     }
-    page.closeIndex();
+    build.closeIndex();
 };
