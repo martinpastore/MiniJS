@@ -7,10 +7,6 @@ this.styles = '';
 this.components = [];
 this.pages = [];
 
-exports.render = function(comp) {
-    component.readComponent(comp);
-};
-
 exports.module = function (modules) {
     for (let i in modules) {
         if (modules[i][1].type === 'component')
