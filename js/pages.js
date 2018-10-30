@@ -37,9 +37,7 @@ exports.replaceComponents = function(html) {
 };
 
 exports.routing = function(component) {
-    if (component.order === '0') {
-        component.html = component.html.replace('>', ' id="0" style="display:block;" >')
-    } else {
-        component.html = component.html.replace('>', ` id="${component.order}" style="display:none;" >`);
-    }
+        component.html = component.order === '0' ?
+            component.html.replace('>', ' id="0" style="display:block;" >') :
+            component.html.replace('>', ` id="${component.order}" style="display:none;" >`);
 };
