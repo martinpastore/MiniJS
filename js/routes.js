@@ -3,17 +3,18 @@ const main = require('../index');
 exports.addRoutesManagement = function() {
     main.scripts += `
         redirect = function(uri) {
-            
-            let oldUri = history;
-                        
-            for (let i in mod) {
-                if (mod[i].route === uri) {
-                    document.getElementById(mod[i].order).style.display = 'block';
-                    history = uri;
-                }
-                
-                if (mod[i].route === oldUri) {
-                    document.getElementById(mod[i].order).style.display = 'none';
+            if (uri !== history) {
+                let oldUri = history;
+                            
+                for (let i in mod) {
+                    if (mod[i].route === uri) {
+                        document.getElementById(mod[i].order).style.display = 'block';
+                        history = uri;
+                    }
+                    
+                    if (mod[i].route === oldUri) {
+                        document.getElementById(mod[i].order).style.display = 'none';
+                    }
                 }
             }
     }`
