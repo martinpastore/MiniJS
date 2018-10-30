@@ -1,4 +1,5 @@
 const main = require('../index');
+const routes = require('./routes');
 const fs = require('fs');
 const fse = require('fs-extra');
 const uglify = require('uglify-es');
@@ -63,6 +64,8 @@ exports.build = function() {
         fse.removeSync(dir);
     }
     fs.mkdirSync(dir);
+
+    routes.addRoutesManagement();
 
     main.document = this.compressHTML(main.document);
     main.scripts = this.compressJS(main.scripts);

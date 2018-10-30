@@ -3,6 +3,9 @@ const build = require('./build');
 
 exports.render = function(component) {
     if (main.document  === '') main.document = build.createIndex();
+
+    this.routing(component);
+
     let html = component.html;
     html = this.replaceComponents(html);
     main.scripts += component.js;
@@ -14,7 +17,8 @@ exports.readPage = function (pages) {
     const result = {
         html: build.readFile(main.configs.pages, pages[0].name, 'html'),
         js: build.compileJS(pages[0].name, main.configs.pages),
-        css: build.compileCSS(pages[0].name, main.configs.pages)
+        css: build.compileCSS(pages[0].name, main.configs.pages),
+        order: pages[2].order
     };
 
     this.render(result);
@@ -30,4 +34,12 @@ exports.replaceComponents = function(html) {
     }
 
     return html;
+};
+
+exports.routing = function(component) {
+    if (component.order === '0') {
+        component.html = component.html.replace('>', ' id="0" style="display:block;" >')
+    } else {
+        component.html = component.html.replace('>', ` id="${component.order}" style="display:none;" >`);
+    }
 };
