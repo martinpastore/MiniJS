@@ -1,6 +1,8 @@
 const main = require('../index');
 const fs = require('fs');
 const fse = require('fs-extra');
+const uglify = require('uglify-es');
+
 let document = '';
 
 exports.createIndex = function() {
@@ -60,6 +62,8 @@ exports.build = function() {
     }
     fs.mkdirSync(dir);
 
+    main.scripts = this.compressFiles(main.scripts);
+
     fs.writeFile('./dist/index.html', main.document, function (err) {
         if (err) return console.log(err);
     });
@@ -86,3 +90,8 @@ exports.build = function() {
 
     fse.copy('./assets/', './dist/assets/');
 };
+
+exports.compressFiles = function(code) {
+    const result = uglify.minify(code);
+    return result.code;
+}
