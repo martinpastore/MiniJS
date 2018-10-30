@@ -10,7 +10,8 @@ let document = '';
 
 exports.createIndex = function() {
     document  = `<html>
-        <head>`;
+        <head>
+        <title>${main.configs.title}</title>`;
 
     if (main.configs.styles.length > 0) {
         for (let i in main.configs.styles) {
