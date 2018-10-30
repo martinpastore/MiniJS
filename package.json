@@ -1,6 +1,6 @@
 {
   "name": "burgerjs",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "Client component framework",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/martinpastore/BurgerJS#readme",
   "dependencies": {
+    "cssmin": "^0.4.3",
     "fs-extra": "^7.0.0",
+    "html-minifier": "^3.5.21",
     "uglify-es": "^3.3.9"
   }
 }

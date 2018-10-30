@@ -2,6 +2,8 @@ const main = require('../index');
 const fs = require('fs');
 const fse = require('fs-extra');
 const uglify = require('uglify-es');
+const cssmin = require('cssmin');
+const minify = require('html-minifier').minify;
 
 let document = '';
 
@@ -62,7 +64,9 @@ exports.build = function() {
     }
     fs.mkdirSync(dir);
 
-    main.scripts = this.compressFiles(main.scripts);
+    main.document = this.compressHTML(main.document);
+    main.scripts = this.compressJS(main.scripts);
+    main.styles = this.compressCSS(main.styles);
 
     fs.writeFile('./dist/index.html', main.document, function (err) {
         if (err) return console.log(err);
@@ -91,7 +95,20 @@ exports.build = function() {
     fse.copy('./assets/', './dist/assets/');
 };
 
-exports.compressFiles = function(code) {
+exports.compressJS = function(code) {
     const result = uglify.minify(code);
     return result.code;
+}
+
+exports.compressCSS = function(code) {
+    const min = cssmin(code);
+    return min;
+}
+
+exports.compressHTML = function(code) {
+    const result = minify(code, {
+        collapseWhitespace: true,
+        caseSensitive: true
+    });
+    return result;
 }
