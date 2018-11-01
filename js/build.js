@@ -11,7 +11,8 @@ let document = '';
 exports.createIndex = function() {
     document  = `<html>
         <head>
-        <title>${main.configs.title}</title>`;
+        <title>${main.configs.title}</title>
+        <link rel="icon" type="./assets/favicon.ico">`;
 
     if (main.configs.styles.length > 0) {
         for (let i in main.configs.styles) {

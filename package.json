@@ -1,6 +1,6 @@
 {
   "name": "burgerjs",
-  "version": "0.0.31",
+  "version": "0.0.33",
   "description": "Client component framework",
   "main": "index.js",
   "scripts": {
