@@ -13,7 +13,7 @@ exports.createIndex = function() {
         <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${main.configs.title}</title>
-        <link rel="icon" type="./assets/favicon.ico">`;
+        <link rel="icon" href="./assets/favicon.ico">`;
 
     if (main.configs.styles.length > 0) {
         for (let i in main.configs.styles) {
