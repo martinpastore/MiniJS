@@ -2,13 +2,14 @@ const main = require('../index');
 
 exports.addRoutesManagement = function() {
     main.scripts += `
-        redirect = function(uri) {
+        redirect = function(uri, params) {
             if (uri !== history) {
                 let oldUri = history;
                             
                 for (let i in mod) {
                     if (mod[i].route === uri) {
                         document.getElementById(mod[i].order).style.display = 'block';
+                        routeParams = params;
                         history = uri;
                     }
                     
@@ -18,7 +19,7 @@ exports.addRoutesManagement = function() {
                 }
             }
     }`
-}
+};
 
 exports.declareModules = function(modules) {
     let history = '';
@@ -34,4 +35,5 @@ exports.declareModules = function(modules) {
     }
     main.scripts += '];';
     main.scripts +=  `let history = '${history}';`;
-}
+    main.scripts +=  `let routeParams = {};`;
+};

@@ -1,5 +1,6 @@
 const main = require('../index');
 const routes = require('./routes');
+const services = require('./services');
 const fs = require('fs');
 const fse = require('fs-extra');
 const uglify = require('uglify-es');
