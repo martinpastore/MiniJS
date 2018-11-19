@@ -2,7 +2,7 @@ const main = require('../index');
 
 exports.addRoutesManagement = function() {
     main.scripts += `
-        redirect = function(uri, params) {
+        redirect = function(uri, params, component) {
             if (uri !== history) {
                 let oldUri = history;
                             
@@ -11,6 +11,9 @@ exports.addRoutesManagement = function() {
                         document.getElementById(mod[i].order).style.display = 'block';
                         routeParams = params;
                         history = uri;
+                        if (window[component + 'OnInit']) {
+                            window[component + 'OnInit']();    
+                        }
                     }
                     
                     if (mod[i].route === oldUri) {
