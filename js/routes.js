@@ -6,6 +6,11 @@ exports.addRoutesManagement = function() {
             if (uri !== history) {
                 let oldUri = history;
                             
+                if (component.indexOf('-') !== -1) {
+                    component = component.replace(/(?:^\\w|[A-Z]|\\b\\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\\s+/g, '');
+                    component = component.replace(/-/g, '');
+                }
+                            
                 for (let i in mod) {
                     if (mod[i].route === uri) {
                         document.getElementById(mod[i].order).style.display = 'block';
