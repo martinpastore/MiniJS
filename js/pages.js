@@ -26,11 +26,25 @@ exports.readPage = function (pages) {
 
 exports.replaceComponents = function(html) {
     for (let i in main.components) {
-        const openTag = new RegExp(`<${main.components[i].selector}>`, 'g');
-        const closeTag = new RegExp(`</${main.components[i].selector}>`, 'g');
-
-        html = html.replace(openTag, main.components[i].html);
-        html = html.replace(closeTag, '');
+        let props = main.components[i].properties ? main.components[i].properties : null;
+        while (html.indexOf(`<${main.components[i].selector}>`) !== -1) {
+            const text = html.match(`<${main.components[i].selector}>(.*?)</${main.components[i].selector}>`).map(function(val){
+                return val.replace(`</${main.components[i].selector}>`,'');
+            });
+            html = html.replace(`<${main.components[i].selector}>`, main.components[i].html);
+            html = html.replace(`</${main.components[i].selector}>`, '');
+            if (props) {
+                for (let i in props) {
+                    html = html.replace(`{${props[i]}}`, text[1]);
+                    let t=0;
+                    const word = new RegExp(`${text[1]}`, 'g');
+                    html = html.replace(word, function (match) {
+                        t++;
+                        return (t === 2) ? "" : match;
+                    });
+                }
+            }
+        }
     }
 
     return html;
