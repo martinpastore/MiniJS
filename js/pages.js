@@ -27,17 +27,42 @@ exports.readPage = function (pages) {
 exports.replaceComponents = function(html) {
     for (let i in main.components) {
         let props = main.components[i].properties ? main.components[i].properties : null;
-        while (html.indexOf(`<${main.components[i].selector}>`) !== -1) {
-            const text = html.match(`<${main.components[i].selector}>(.*?)</${main.components[i].selector}>`).map(function(val){
+        while (html.indexOf(`<${main.components[i].selector}`) !== -1) {
+            let src = null;
+            let text = html.match(`<${main.components[i].selector} {(.*?)}>(.*?)</${main.components[i].selector}>`);
+            if (text) {
+                src = html.match(/{(.*?)}/).map(function(val) { return val; });
+            }
+            console.log(src);
+
+            if (!text) {
+                text = html.match(`<${main.components[i].selector}>(.*?)</${main.components[i].selector}>`);
+            }
+            text = text.map(function(val){
                 return val.replace(`</${main.components[i].selector}>`,'');
             });
-            html = html.replace(`<${main.components[i].selector}>`, main.components[i].html);
+
+            if (src) {
+                html = html.replace(`<${main.components[i].selector} ${src[0]}>`, main.components[i].html);
+            } else {
+                html = html.replace(`<${main.components[i].selector}>`, main.components[i].html);
+            }
             html = html.replace(`</${main.components[i].selector}>`, '');
             if (props) {
                 for (let i in props) {
-                    html = html.replace(`{${props[i]}}`, text[1]);
+                    if (src) {
+                        html = html.replace(`{${props[i]}}`, text[2]);
+                        html = html.replace('{src}', src[1]);
+                    } else {
+                        html = html.replace(`{${props[i]}}`, text[1]);
+                    }
                     let t=0;
-                    const word = new RegExp(`${text[1]}`, 'g');
+                    let word;
+                    if (src) {
+                        word = new RegExp(`${text[2]}`, 'g');
+                    } else {
+                        word = new RegExp(`${text[1]}`, 'g');
+                    }
                     html = html.replace(word, function (match) {
                         t++;
                         return (t === 2) ? "" : match;
@@ -46,7 +71,6 @@ exports.replaceComponents = function(html) {
             }
         }
     }
-
     return html;
 };
 
