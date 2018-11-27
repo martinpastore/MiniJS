@@ -2,7 +2,7 @@ const main = require('../index');
 
 exports.addHttpService = function () {
     main.scripts += `
-        httpRequest = function(method, url, type) {
+        httpRequest = function(method, url, body, type) {
             return new Promise (function (resolve, reject){
                 var xhr = new XMLHttpRequest();
     
@@ -19,8 +19,12 @@ exports.addHttpService = function () {
                 xhr.onerror = function() {
                     reject(xhr.responseText);
                 };
-    
-                xhr.send();
+                
+                if (!body) {
+                    xhr.send();
+                } else {
+                    xhr.send(JSON.stringify(body));
+                }
             });
         };
     `;
