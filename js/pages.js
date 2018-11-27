@@ -33,7 +33,6 @@ exports.replaceComponents = function(html) {
             if (text) {
                 src = html.match(/{(.*?)}/).map(function(val) { return val; });
             }
-            console.log(src);
 
             if (!text) {
                 text = html.match(`<${main.components[i].selector}>(.*?)</${main.components[i].selector}>`);

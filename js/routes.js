@@ -3,29 +3,27 @@ const main = require('../index');
 exports.addRoutesManagement = function() {
     main.scripts += `
         redirect = function(uri, params, component) {
-            if (uri !== history) {
-                let oldUri = history;
-                            
-                if (component) {
-                    if (component.indexOf('-') !== -1) {
-                        component = component.replace(/(?:^\\w|[A-Z]|\\b\\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\\s+/g, '');
-                        component = component.replace(/-/g, '');
+            let oldUri = history;
+                        
+            if (component) {
+                if (component.indexOf('-') !== -1) {
+                    component = component.replace(/(?:^\\w|[A-Z]|\\b\\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\\s+/g, '');
+                    component = component.replace(/-/g, '');
+                }
+            }
+                        
+            for (let i in mod) {
+                if (mod[i].route === uri) {
+                    document.getElementById(mod[i].order).style.display = 'block';
+                    routeParams = params;
+                    history = uri;
+                    if (window[component + 'OnInit']) {
+                        window[component + 'OnInit']();    
                     }
                 }
-                            
-                for (let i in mod) {
-                    if (mod[i].route === uri) {
-                        document.getElementById(mod[i].order).style.display = 'block';
-                        routeParams = params;
-                        history = uri;
-                        if (window[component + 'OnInit']) {
-                            window[component + 'OnInit']();    
-                        }
-                    }
-                    
-                    if (mod[i].route === oldUri) {
-                        document.getElementById(mod[i].order).style.display = 'none';
-                    }
+                
+                if (mod[i].route === oldUri && oldUri !== uri) {
+                    document.getElementById(mod[i].order).style.display = 'none';
                 }
             }
     }`
@@ -33,7 +31,7 @@ exports.addRoutesManagement = function() {
 
 exports.declareModules = function(modules) {
     let history = '';
-    main.scripts += 'const mod = ['
+    main.scripts += 'const mod = [';
     for (let i in modules) {
         if (modules[i][1].type === 'page') {
             if (history === '') {
