@@ -23,6 +23,7 @@ exports.addHttpService = function () {
                 if (!body) {
                     xhr.send();
                 } else {
+                    xhr.setRequestHeader('Content-type', 'application/json')
                     xhr.send(JSON.stringify(body));
                 }
             });
