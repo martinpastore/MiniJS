@@ -25,7 +25,7 @@ exports.createIndex = function() {
 
     document += `<link rel="stylesheet" href="main.css">
             </head>
-    <body id="burgerjs-app">`
+    <body id="minijs-app">`
     return document;
 };
 

@@ -1,7 +1,7 @@
 {
-  "name": "burgerjs",
-  "version": "0.0.62",
-  "description": "Client component framework",
+  "name": "minijs",
+  "version": "0.0.1",
+  "description": "Mini stack component framework",
   "main": "index.js",
   "scripts": {
     "package": "npm build",
