@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/martinpastore/BurgerJS.git"
+    "url": "git+https://github.com/martinpastore/MiniJS.git"
   },
   "author": "martinpastore",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/martinpastore/BurgerJS/issues"
+    "url": "https://github.com/martinpastore/MiniJS/issues"
   },
-  "homepage": "https://github.com/martinpastore/BurgerJS#readme",
+  "homepage": "https://github.com/martinpastore/MiniJS#readme",
   "dependencies": {
     "cssmin": "^0.4.3",
     "fs-extra": "^7.0.0",
