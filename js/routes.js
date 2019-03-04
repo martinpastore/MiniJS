@@ -15,6 +15,7 @@ exports.addRoutesManagement = function() {
             for (let i in mod) {
                 if (mod[i].route === uri) {
                     document.getElementById(mod[i].order).style.display = 'block';
+                    window.location.hash = mod[i].route.replace('/', '#');
                     routeParams = params;
                     history = uri;
                     if (window[component + 'OnInit']) {
@@ -28,6 +29,22 @@ exports.addRoutesManagement = function() {
             }
     }`
 };
+
+exports.hashReaction = function () {
+    main.scripts += `
+        window.onhashchange = function () {
+            let hash = window.location.hash;
+            hash = hash.replace('#', '');
+
+            for (let i in mod) {
+                const route = mod[i].route.replace('/', '');
+                if (route === hash) {
+                    redirect(mod[i].route);
+                }
+            }
+        }
+    `;
+}
 
 exports.declareModules = function(modules) {
     let history = '';
