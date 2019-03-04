@@ -71,6 +71,7 @@ exports.build = function() {
     fs.mkdirSync(dir);
 
     routes.addRoutesManagement();
+    routes.hashCheck();
     routes.hashReaction();
 
     main.document = this.compressHTML(main.document);

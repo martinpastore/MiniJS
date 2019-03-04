@@ -2,9 +2,9 @@ const main = require('../index');
 
 exports.addRoutesManagement = function() {
     main.scripts += `
-        redirect = function(uri, params, component) {
+        redirect = function(uri, params) {
             let oldUri = history;
-                        
+            let component = uri.replace('/', '');
             if (component) {
                 if (component.indexOf('-') !== -1) {
                     component = component.replace(/(?:^\\w|[A-Z]|\\b\\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\\s+/g, '');
@@ -19,7 +19,7 @@ exports.addRoutesManagement = function() {
                     routeParams = params;
                     history = uri;
                     if (window[component + 'OnInit']) {
-                        window[component + 'OnInit']();    
+                        window[component + 'OnInit']();
                     }
                 }
                 
@@ -35,7 +35,29 @@ exports.hashReaction = function () {
         window.onhashchange = function () {
             let hash = window.location.hash;
             hash = hash.replace('#', '');
+            
+            let c = 0;
+            for (let i in mod) {
+                const route = mod[i].route.replace('/', '');
+                if (route === hash) {
+                    redirect(mod[i].route);
+                    c++;
+                }
+            }
 
+            if (c === 0) {
+                redirect('/404');
+            }
+        }
+    `;
+}
+
+exports.hashCheck = function () {
+    main.scripts += `
+        window.onload = function () {
+            let hash = window.location.hash;
+            hash = hash.replace('#', '');
+            
             for (let i in mod) {
                 const route = mod[i].route.replace('/', '');
                 if (route === hash) {
