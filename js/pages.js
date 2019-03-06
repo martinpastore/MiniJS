@@ -8,8 +8,8 @@ exports.render = function(component) {
 
     let html = component.html;
     html = this.replaceComponents(html);
-    main.scripts += component.js;
-    main.styles += component.css;
+    main.scripts += '\n' + component.js;
+    main.styles += '\n' + component.css;
     main.document += html;
 };
 

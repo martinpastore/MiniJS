@@ -1,6 +1,6 @@
 {
   "name": "@bochap_/minijs",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "Mini stack component framework",
   "main": "index.js",
   "scripts": {

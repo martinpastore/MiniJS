@@ -5,11 +5,8 @@ exports.addRoutesManagement = function() {
         redirect = function(uri, params) {
             let oldUri = history;
             let component = uri.replace('/', '');
-            if (component) {
-                if (component.indexOf('-') !== -1) {
-                    component = component.replace(/(?:^\\w|[A-Z]|\\b\\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\\s+/g, '');
-                    component = component.replace(/-/g, '');
-                }
+            if (component.indexOf('-') !== -1) {
+                component = component.replace(/-/g, '');
             }
                         
             for (let i in mod) {
